@@ -16,6 +16,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -27,8 +28,16 @@ public class UserService {
         return Optional.ofNullable(users.get(userId));
     }
 
-    public Collection<User> getUserList() {
-        return users.values();
+    public Collection<User> getUserList(Long size, Long from, String sort) {
+
+        return users.values().stream()
+                .sorted((p0, p1) -> {
+                    long comp = p0.getRegistrationDate().compareTo(p1.getRegistrationDate());
+                    if (sort.equals("desc")){
+                        comp = -1 * comp;
+                    }
+                    return (int) comp;
+                }).skip(from).limit(size).collect(Collectors.toList());
     }
 
 

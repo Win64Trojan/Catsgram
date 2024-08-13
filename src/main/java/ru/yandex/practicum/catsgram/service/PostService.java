@@ -11,6 +11,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 // Указываем, что класс PostService - является бином и его
 // нужно добавить в контекст приложения
@@ -25,8 +26,16 @@ public class PostService {
         this.userService = userService;
     }
 
-    public Collection<Post> findAll() {
-        return posts.values();
+    public Collection<Post> findAll(Long size, Long from, String sort) {
+
+        return posts.values().stream()
+                .sorted((p0, p1) -> {
+                    long comp = p0.getCreationDate().compareTo(p1.getCreationDate());
+                    if (sort.equals("desc")){
+                        comp = -1 * comp;
+                    }
+                    return (int) comp;
+                }).skip(from).limit(size).collect(Collectors.toList());
     }
 
     public Post create(Post post) {
@@ -44,7 +53,7 @@ public class PostService {
         return post;
     }
 
-    public Post findPostById(Long postById){
+    public Optional <Post> findPostById(Long postById){
         return Optional.ofNullable(posts.get(postById))
                 .orElseThrow(() -> new NotFoundException(String.format("Пост № %d не найден", postById)));
     }
@@ -72,4 +81,5 @@ public class PostService {
                 .orElse(0);
         return ++currentMaxId;
     }
+
 }
