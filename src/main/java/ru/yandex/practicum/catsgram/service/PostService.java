@@ -54,8 +54,7 @@ public class PostService {
     }
 
     public Optional <Post> findPostById(Long postById){
-        return Optional.ofNullable(posts.get(postById))
-                .orElseThrow(() -> new NotFoundException(String.format("Пост № %d не найден", postById)));
+        return Optional.ofNullable(posts.get(postById));
     }
 
     public Post update(Post newPost) {
