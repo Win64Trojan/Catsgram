@@ -8,7 +8,12 @@ import java.time.Instant;
 public class Post { //  модель, описывающая сообщения в социальной сети. У неё следующие поля данных:
 
     Long id; // уникальный идентификатор сообщения
-    long authorId; // пользователь, который создал сообщение,
+    Long authorId; // пользователь, который создал сообщение,
     String description;  //  текстовое описание сообщения
     Instant postDate; // дата и время создания сообщения
+    private final Instant creationDate = Instant.now();
+
+    public Instant getCreationDate() {
+        return creationDate;
+    }
 }
