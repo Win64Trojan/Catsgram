@@ -33,23 +33,14 @@ public class ErrorHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse handleParameterNotValidException (final ParameterNotValidException e){
+    public ErrorResponse handleParameterNotValidException(final ParameterNotValidException e) {
 
-        return new ErrorResponse("Некорректное значение параметра " + e.getParameter() +  ": " + e.getReason());
+        return new ErrorResponse("Некорректное значение параметра " + e.getParameter() + ": " + e.getReason());
     }
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-    public ErrorResponse handleThrowable (final Throwable e){
+    public ErrorResponse handleThrowable(final Throwable e) {
         return new ErrorResponse("Произошла непредвиденная ошибка." + e.getMessage());
-    }
-}
-
- class ErrorResponse {
-    private final String error;
-
-
-    public ErrorResponse(String error) {
-        this.error = error;
     }
 }

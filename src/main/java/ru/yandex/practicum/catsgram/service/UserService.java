@@ -1,14 +1,8 @@
 package ru.yandex.practicum.catsgram.service;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.DuplicatedDataException;
-import ru.yandex.practicum.catsgram.exception.NotFoundException;
-import ru.yandex.practicum.catsgram.model.Post;
 import ru.yandex.practicum.catsgram.model.User;
 
 import java.time.Instant;
@@ -24,7 +18,7 @@ public class UserService {
     private final Map<Long, User> users = new HashMap<>();
 
 
-    public Optional<User> findUserById(Long userId){
+    public Optional<User> findUserById(Long userId) {
         return Optional.ofNullable(users.get(userId));
     }
 
@@ -33,7 +27,7 @@ public class UserService {
         return users.values().stream()
                 .sorted((p0, p1) -> {
                     long comp = p0.getRegistrationDate().compareTo(p1.getRegistrationDate());
-                    if (sort.equals("desc")){
+                    if (sort.equals("desc")) {
                         comp = -1 * comp;
                     }
                     return (int) comp;

@@ -31,7 +31,7 @@ public class PostService {
         return posts.values().stream()
                 .sorted((p0, p1) -> {
                     long comp = p0.getCreationDate().compareTo(p1.getCreationDate());
-                    if (sort.equals("desc")){
+                    if (sort.equals("desc")) {
                         comp = -1 * comp;
                     }
                     return (int) comp;
@@ -53,7 +53,7 @@ public class PostService {
         return post;
     }
 
-    public Optional <Post> findPostById(Long postById){
+    public Optional<Post> findPostById(Long postById) {
         return Optional.ofNullable(posts.get(postById));
     }
 
